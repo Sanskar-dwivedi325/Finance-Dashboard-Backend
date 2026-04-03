@@ -27,6 +27,4 @@ public class Transaction {
 
     private String description;
 
-    @ManyToOne
-    private User user;
 }

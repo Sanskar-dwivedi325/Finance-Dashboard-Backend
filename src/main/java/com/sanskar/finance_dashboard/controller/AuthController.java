@@ -13,10 +13,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/register")
-    public String register(@RequestBody User user) {
-        return authService.register(user);
-    }
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
