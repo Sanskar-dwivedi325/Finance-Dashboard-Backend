@@ -30,6 +30,6 @@ public class AuthService {
             throw new RuntimeException("Wrong password");
         }
 
-        return jwtUtil.generateToken(email);
+        return jwtUtil.generateToken(email,user.getRole().name());
     }
 }

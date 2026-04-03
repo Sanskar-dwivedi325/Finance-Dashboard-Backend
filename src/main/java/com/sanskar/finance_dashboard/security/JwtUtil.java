@@ -15,8 +15,8 @@ public class JwtUtil {
 
     private final Key key= Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public String generateToken(String email) {
-        return Jwts.builder().setSubject(email).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+    public String generateToken(String email,String role) {
+        return Jwts.builder().setSubject(email).claim("role",role).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(key).compact();
     }
 
@@ -29,13 +29,17 @@ public class JwtUtil {
             getClaims(token);
             return true;
         }
-        catch(ExpiredJwtException e){
+        catch(Exception e){
             return false;
         }
     }
 
     private Claims getClaims(String token) {
         return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+    }
+
+    public String extractRole(String token) {
+        return getClaims(token).get("role", String.class);
     }
 
 }
