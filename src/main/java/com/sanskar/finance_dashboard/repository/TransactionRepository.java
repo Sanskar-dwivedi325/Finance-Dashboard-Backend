@@ -15,6 +15,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     Page<Transaction> findByType(Type type, Pageable pageable);
     Page<Transaction> findByCategoryContaining(String category, Pageable pageable);
+    Page<Transaction> findByTypeAndCategory(Type type, String category, Pageable pageable);
 
     @Query("SELECT SUM(t.amount) FROM Transaction t WHERE t.type='INCOME'")
     Double totalIncome();

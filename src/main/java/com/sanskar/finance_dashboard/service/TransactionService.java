@@ -33,8 +33,7 @@ public class TransactionService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("date").descending());
 
         if (category != null && type != null) {
-            return (Page<Transaction>) transactionRepository.findAll(pageable).map(t->t).filter(t->t.getCategory().toLowerCase().contains(category.toLowerCase())
-            && t.getType()==type);
+            return (Page<Transaction>) transactionRepository.findByTypeAndCategory(type, category, pageable);
         }
 
         if (category != null) {
