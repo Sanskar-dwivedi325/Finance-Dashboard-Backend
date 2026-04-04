@@ -25,7 +25,10 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setPassword(passwordEncoder.encode(updated.getPassword()));
+        if(updated.getPassword()!=null&&!updated.getPassword().trim().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(updated.getPassword()));
+        }
+
         user.setRole(updated.getRole());
         user.setActive(updated.isActive());
         return userRepository.save(user);
